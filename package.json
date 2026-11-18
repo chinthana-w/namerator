@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "python3 -m http.server 4173",
-    "check": "node --check app.js"
+    "start": "python3 server.py",
+    "check": "node --check app.js",
+    "test": "python3 -m unittest -v"
   }
 }

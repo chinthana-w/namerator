@@ -3,135 +3,158 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f7f8f5" />
-    <title>Namerator — Word Builder</title>
+    <meta name="theme-color" content="#f5f6f1" />
+    <meta name="description" content="Explore words, meanings, and sounds across languages." />
+    <title>Namerator — Word Explorer</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <div class="brand">
-          <div class="brand-mark" aria-hidden="true">
-            <span>N</span>
-          </div>
+        <a class="brand" href="/" aria-label="Namerator home">
+          <span class="brand-mark" aria-hidden="true">n</span>
           <span>Namerator</span>
-        </div>
-        <nav class="topnav" aria-label="Primary">
-          <button class="nav-item active">Workshop</button>
-          <button class="nav-item">Library</button>
-        </nav>
+        </a>
+        <div class="board-title"><span class="board-dot"></span> Untitled exploration</div>
         <div class="top-actions">
-          <button class="icon-button" id="undoButton" title="Reset workspace" aria-label="Reset workspace">↶</button>
-          <button class="icon-button" title="Help" aria-label="Help">?</button>
-          <button class="primary-button" id="playButton"><span>▶</span> Play</button>
+          <button class="icon-button" id="resetButton" title="Clear canvas" aria-label="Clear canvas">↶</button>
+          <button class="help-button" id="helpButton" title="How to use the canvas">?</button>
         </div>
       </header>
 
       <main class="workspace">
-        <aside class="palette" aria-label="Word block palette">
-          <div class="palette-heading">
-            <span>Blocks</span>
-            <button class="tiny-button" id="collapsePalette" title="Collapse palette" aria-label="Collapse palette">‹</button>
-          </div>
-          <div class="palette-list">
-            <button class="palette-block" data-kind="prefix" draggable="true">
-              <span class="block-symbol prefix-symbol">A</span>
-              <span><strong>Prefix</strong><small>Starts a word</small></span>
-              <span class="drag-dots">⠿</span>
-            </button>
-            <button class="palette-block" data-kind="root" draggable="true">
-              <span class="block-symbol root-symbol">R</span>
-              <span><strong>Root</strong><small>Core meaning</small></span>
-              <span class="drag-dots">⠿</span>
-            </button>
-            <button class="palette-block" data-kind="suffix" draggable="true">
-              <span class="block-symbol suffix-symbol">S</span>
-              <span><strong>Suffix</strong><small>Ends a word</small></span>
-              <span class="drag-dots">⠿</span>
-            </button>
-          </div>
-        </aside>
-
-        <section class="canvas-area" id="canvasArea" aria-label="Word building canvas">
+        <section class="canvas-column" aria-label="Word canvas workspace">
           <div class="canvas-toolbar">
-            <div>
-              <span class="eyebrow">CHALLENGE 04</span>
-              <h1>Build a word for <em>“growth”</em></h1>
+            <div class="canvas-intro">
+              <span class="eyebrow">A CANVAS FOR CURIOSITY</span>
+              <h1>Where can a word take you?</h1>
+              <p>Add a word, then follow its meaning and sound.</p>
             </div>
-            <div class="zoom-controls" aria-label="Canvas zoom">
-              <button id="zoomOut" aria-label="Zoom out">−</button>
-              <span id="zoomLabel">100%</span>
-              <button id="zoomIn" aria-label="Zoom in">＋</button>
+            <div class="toolbar-actions">
+              <div class="zoom-controls" aria-label="Canvas zoom">
+                <button id="zoomOut" aria-label="Zoom out">−</button>
+                <span id="zoomLabel">100%</span>
+                <button id="zoomIn" aria-label="Zoom in">+</button>
+              </div>
+              <button class="primary-button" id="addWordButton"><span aria-hidden="true">+</span> Add word</button>
             </div>
           </div>
 
-          <div class="canvas" id="canvas">
-            <svg class="connections" id="connections" aria-hidden="true">
-              <defs>
-                <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                  <path d="M0,0 L8,4 L0,8 z" fill="#b8beb3"></path>
-                </marker>
-              </defs>
-            </svg>
-
-            <article class="word-block prefix-block" data-id="prefix" data-kind="prefix" style="left: 17%; top: 38%;">
-              <div class="block-head"><span class="block-symbol prefix-symbol">A</span><span>Prefix</span><button class="block-menu" aria-label="Prefix options">•••</button></div>
-              <label>Choose prefix</label>
-              <select class="word-select" data-field="prefix">
-                <option value="pro">pro</option><option value="anti">anti</option><option value="bio">bio</option>
-              </select>
-            </article>
-
-            <article class="word-block root-block" data-id="root" data-kind="root" style="left: 43%; top: 38%;">
-              <div class="block-head"><span class="block-symbol root-symbol">R</span><span>Root</span><button class="block-menu" aria-label="Root options">•••</button></div>
-              <label>Choose root</label>
-              <select class="word-select" data-field="root">
-                <option value="gress">gress</option><option value="duct">duct</option><option value="spec">spec</option>
-              </select>
-            </article>
-
-            <article class="word-block suffix-block" data-id="suffix" data-kind="suffix" style="left: 69%; top: 38%;">
-              <div class="block-head"><span class="block-symbol suffix-symbol">S</span><span>Suffix</span><button class="block-menu" aria-label="Suffix options">•••</button></div>
-              <label>Choose suffix</label>
-              <select class="word-select" data-field="suffix">
-                <option value="ion">ion</option><option value="ive">ive</option><option value="able">able</option>
-              </select>
-            </article>
-
-            <button class="add-connection" id="addConnection" title="Add block" aria-label="Add block">＋</button>
+          <div class="canvas-frame">
+            <div class="canvas" id="canvas" aria-label="Interactive word canvas">
+              <div class="canvas-world" id="canvasWorld">
+                <svg class="connections" id="connections" aria-hidden="true">
+                  <defs>
+                    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                      <path d="M0,0 L8,4 L0,8 z"></path>
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+              <div class="empty-state" id="emptyState">
+                <span class="empty-icon" aria-hidden="true">✳</span>
+                <h2>Your canvas is a blank page.</h2>
+                <p>Right-click anywhere or add a word to begin exploring.</p>
+                <button class="text-button" id="emptyAddWordButton">Add your first word <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+            <div class="canvas-hint"><span class="hint-dot"></span> Right-click to add · drag the canvas to pan</div>
           </div>
         </section>
 
-        <aside class="config-panel" id="configPanel">
-          <div class="config-heading">
-            <div><span class="eyebrow">SELECTED BLOCK</span><h2 id="selectedTitle">Progression</h2></div>
-            <button class="close-button" id="closeConfig" aria-label="Close configuration">×</button>
-          </div>
-          <div class="config-section">
-            <label for="blockName">Block name</label>
-            <input id="blockName" value="Progress" />
-          </div>
-          <div class="config-section">
-            <div class="section-label">Meaning</div>
-            <div class="meaning-card">
-              <span class="meaning-icon">↗</span>
-              <div><strong id="meaningTitle">Forward movement</strong><small id="meaningText">Progressing toward growth</small></div>
+        <aside class="settings-panel" aria-label="Exploration settings">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">YOUR EXPLORATION</span>
+              <h2>Preferences</h2>
             </div>
+            <span class="settings-icon" aria-hidden="true">⚙</span>
           </div>
-          <div class="config-section">
-            <label for="toneRange">Difficulty</label>
-            <input id="toneRange" type="range" min="1" max="3" value="2" />
-            <div class="range-labels"><span>Easy</span><span>Medium</span><span>Hard</span></div>
+
+          <section class="setting-section">
+            <label for="resultCount">Words per exploration</label>
+            <div class="count-control">
+              <span>Generate</span>
+              <input id="resultCount" type="number" min="1" max="12" value="5" inputmode="numeric" />
+              <span>words</span>
+            </div>
+            <p class="setting-help">Choose how many new words to add at a time.</p>
+          </section>
+
+          <section class="setting-section">
+            <label for="exploreMode">Explore by</label>
+            <select id="exploreMode">
+              <option value="both">Meaning and sound</option>
+              <option value="meaning">Meaning</option>
+              <option value="sound">Sound</option>
+            </select>
+            <p class="setting-help">Suggestions use available word and pronunciation data.</p>
+          </section>
+
+          <section class="setting-section language-section">
+            <div class="section-title">
+              <span>Preferred languages</span>
+              <span class="preference-mark" aria-hidden="true">↑</span>
+            </div>
+            <p class="setting-help">Show these languages first.</p>
+            <details class="language-picker">
+              <summary id="preferredSummary">Any language</summary>
+              <div class="language-list" data-language-group="preferred"></div>
+            </details>
+          </section>
+
+          <section class="setting-section language-section">
+            <div class="section-title">
+              <span>Avoid languages</span>
+              <span class="avoid-mark" aria-hidden="true">−</span>
+            </div>
+            <p class="setting-help">Hide suggestions in these languages.</p>
+            <details class="language-picker">
+              <summary id="avoidedSummary">None</summary>
+              <div class="language-list" data-language-group="avoided"></div>
+            </details>
+          </section>
+
+          <div class="session-note">
+            <span class="session-icon" aria-hidden="true">◷</span>
+            <p>Your canvas and removed-word list last for this page session.</p>
           </div>
-          <div class="config-section">
-            <div class="section-label">Preview</div>
-            <div class="word-preview"><span id="previewText">progression</span><span class="preview-score">+120</span></div>
+          <div class="source-note">
+            Word data from <a href="https://en.wiktionary.org/" target="_blank" rel="noreferrer">Wiktionary</a> and <a href="https://conceptnet.io/" target="_blank" rel="noreferrer">ConceptNet</a>. Coverage varies by word and language.
           </div>
-          <button class="apply-button" id="applyButton">Apply changes</button>
         </aside>
       </main>
 
-      <div class="toast" id="toast" role="status" aria-live="polite">Changes saved</div>
+      <div class="context-menu" id="contextMenu" role="menu" hidden>
+        <button type="button" role="menuitem" data-action="add"><span>＋</span> Add word</button>
+        <button type="button" role="menuitem" data-action="explore"><span>↗</span> Explore</button>
+        <button type="button" role="menuitem" data-action="describe"><span>≡</span> Describe</button>
+        <button type="button" role="menuitem" data-action="join"><span>⤳</span> Join with…</button>
+        <div class="menu-divider"></div>
+        <button type="button" role="menuitem" data-action="remove" class="remove-action"><span>×</span> Remove</button>
+      </div>
+
+      <dialog class="word-dialog" id="wordDialog">
+        <form id="wordForm">
+          <div class="dialog-heading">
+            <div>
+              <span class="eyebrow">NEW WORD</span>
+              <h2>Add to your canvas</h2>
+            </div>
+            <button type="button" class="dialog-close" id="closeDialog" aria-label="Close">×</button>
+          </div>
+          <label for="wordInput">Word or phrase</label>
+          <input id="wordInput" name="word" maxlength="100" autocomplete="off" placeholder="Try a word like “wander”" required />
+          <label for="newWordLanguage">Language</label>
+          <select id="newWordLanguage" name="language"></select>
+          <div class="dialog-actions">
+            <button type="button" class="secondary-button" id="cancelDialog">Cancel</button>
+            <button type="submit" class="primary-button">Add word</button>
+          </div>
+        </form>
+      </dialog>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
     </div>
     <script src="app.js"></script>
   </body>
