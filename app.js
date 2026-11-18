@@ -12,7 +12,7 @@ function showToast(message) {
 }
 
 function drawConnections() {
-  svg.innerHTML = '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b8beb3"></marker></defs>';
+  svg.innerHTML = '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b8beb3"></path></marker></defs>';
   const blocks = [...canvas.querySelectorAll(".word-block")].sort((a, b) => a.offsetLeft - b.offsetLeft);
   for (let i = 0; i < blocks.length - 1; i++) {
     const from = blocks[i].getBoundingRect ? blocks[i].getBoundingRect() : blocks[i].getBoundingClientRect();
@@ -93,6 +93,12 @@ document.getElementById("applyButton").addEventListener("click", () => {
 document.getElementById("playButton").addEventListener("click", () => showToast("Challenge started"));
 document.getElementById("undoButton").addEventListener("click", () => {
   location.reload();
+});
+document.getElementById("collapsePalette").addEventListener("click", () => {
+  const palette = document.querySelector(".palette");
+  palette.style.display = palette.style.display === "none" ? "block" : "none";
+  document.querySelector(".workspace").style.gridTemplateColumns =
+    palette.style.display === "none" ? "0 minmax(420px, 1fr) 270px" : "";
 });
 document.getElementById("closeConfig").addEventListener("click", () => {
   document.getElementById("configPanel").style.display = "none";
