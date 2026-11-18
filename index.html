@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8f5" />
+    <title>Namerator — Word Builder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span>N</span>
+          </div>
+          <span>Namerator</span>
+        </div>
+        <nav class="topnav" aria-label="Primary">
+          <button class="nav-item active">Workshop</button>
+          <button class="nav-item">Library</button>
+        </nav>
+        <div class="top-actions">
+          <button class="icon-button" id="undoButton" title="Reset workspace" aria-label="Reset workspace">↶</button>
+          <button class="icon-button" title="Help" aria-label="Help">?</button>
+          <button class="primary-button" id="playButton"><span>▶</span> Play</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="palette" aria-label="Word block palette">
+          <div class="palette-heading">
+            <span>Blocks</span>
+            <button class="tiny-button" id="collapsePalette" title="Collapse palette" aria-label="Collapse palette">‹</button>
+          </div>
+          <div class="palette-list">
+            <button class="palette-block" data-kind="prefix" draggable="true">
+              <span class="block-symbol prefix-symbol">A</span>
+              <span><strong>Prefix</strong><small>Starts a word</small></span>
+              <span class="drag-dots">⠿</span>
+            </button>
+            <button class="palette-block" data-kind="root" draggable="true">
+              <span class="block-symbol root-symbol">R</span>
+              <span><strong>Root</strong><small>Core meaning</small></span>
+              <span class="drag-dots">⠿</span>
+            </button>
+            <button class="palette-block" data-kind="suffix" draggable="true">
+              <span class="block-symbol suffix-symbol">S</span>
+              <span><strong>Suffix</strong><small>Ends a word</small></span>
+              <span class="drag-dots">⠿</span>
+            </button>
+          </div>
+        </aside>
+
+        <section class="canvas-area" id="canvasArea" aria-label="Word building canvas">
+          <div class="canvas-toolbar">
+            <div>
+              <span class="eyebrow">CHALLENGE 04</span>
+              <h1>Build a word for <em>“growth”</em></h1>
+            </div>
+            <div class="zoom-controls" aria-label="Canvas zoom">
+              <button id="zoomOut" aria-label="Zoom out">−</button>
+              <span id="zoomLabel">100%</span>
+              <button id="zoomIn" aria-label="Zoom in">＋</button>
+            </div>
+          </div>
+
+          <div class="canvas" id="canvas">
+            <svg class="connections" id="connections" aria-hidden="true">
+              <defs>
+                <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                  <path d="M0,0 L8,4 L0,8 z" fill="#b8beb3"></path>
+                </marker>
+              </defs>
+            </svg>
+
+            <article class="word-block prefix-block" data-id="prefix" data-kind="prefix" style="left: 17%; top: 38%;">
+              <div class="block-head"><span class="block-symbol prefix-symbol">A</span><span>Prefix</span><button class="block-menu" aria-label="Prefix options">•••</button></div>
+              <label>Choose prefix</label>
+              <select class="word-select" data-field="prefix">
+                <option value="pro">pro</option><option value="anti">anti</option><option value="bio">bio</option>
+              </select>
+            </article>
+
+            <article class="word-block root-block" data-id="root" data-kind="root" style="left: 43%; top: 38%;">
+              <div class="block-head"><span class="block-symbol root-symbol">R</span><span>Root</span><button class="block-menu" aria-label="Root options">•••</button></div>
+              <label>Choose root</label>
+              <select class="word-select" data-field="root">
+                <option value="gress">gress</option><option value="duct">duct</option><option value="spec">spec</option>
+              </select>
+            </article>
+
+            <article class="word-block suffix-block" data-id="suffix" data-kind="suffix" style="left: 69%; top: 38%;">
+              <div class="block-head"><span class="block-symbol suffix-symbol">S</span><span>Suffix</span><button class="block-menu" aria-label="Suffix options">•••</button></div>
+              <label>Choose suffix</label>
+              <select class="word-select" data-field="suffix">
+                <option value="ion">ion</option><option value="ive">ive</option><option value="able">able</option>
+              </select>
+            </article>
+
+            <button class="add-connection" id="addConnection" title="Add block" aria-label="Add block">＋</button>
+          </div>
+        </section>
+
+        <aside class="config-panel" id="configPanel">
+          <div class="config-heading">
+            <div><span class="eyebrow">SELECTED BLOCK</span><h2 id="selectedTitle">Progression</h2></div>
+            <button class="close-button" id="closeConfig" aria-label="Close configuration">×</button>
+          </div>
+          <div class="config-section">
+            <label for="blockName">Block name</label>
+            <input id="blockName" value="Progress" />
+          </div>
+          <div class="config-section">
+            <div class="section-label">Meaning</div>
+            <div class="meaning-card">
+              <span class="meaning-icon">↗</span>
+              <div><strong id="meaningTitle">Forward movement</strong><small id="meaningText">Progressing toward growth</small></div>
+            </div>
+          </div>
+          <div class="config-section">
+            <label for="toneRange">Difficulty</label>
+            <input id="toneRange" type="range" min="1" max="3" value="2" />
+            <div class="range-labels"><span>Easy</span><span>Medium</span><span>Hard</span></div>
+          </div>
+          <div class="config-section">
+            <div class="section-label">Preview</div>
+            <div class="word-preview"><span id="previewText">progression</span><span class="preview-score">+120</span></div>
+          </div>
+          <button class="apply-button" id="applyButton">Apply changes</button>
+        </aside>
+      </main>
+
+      <div class="toast" id="toast" role="status" aria-live="polite">Changes saved</div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
